@@ -1,11 +1,12 @@
 # cards_ui
-Лёгкая библиотека для создания интерфейса на Processing (Java, Android). Доделано by AlexGyver, исходник заброшен:
-- Примеры: http://web.media.mit.edu/~cassiano/projects/cards_ui/index.html  
-- Репозиторий автора: https://github.com/lucascassiano/cards_ui  
+Лёгкая и простая библиотека для создания интерфейса на Processing (Java, Android). Исходник (заброшен):
+- Документация: http://web.media.mit.edu/~cassiano/projects/cards_ui/index.html  
+- Репозиторий: https://github.com/lucascassiano/cards_ui  
 
+Я форкнул себе, доделал недоделанное, починил неработающее и добавил пару приколюх.
 ![demo](/demo.png)
 
-# Возможности
+## Возможности
 - Подсказка
 - Кнопка
 - Кнопка с картинкой
@@ -17,14 +18,14 @@
 - Выпадающий список
 - FontAwesome иконка
 
-# Изменения
+## Изменения от AlexGyver
 - Доделал DropDown
-- Добавил изменение размера шрифта
+- Добавил изменение общего размера шрифта
 - Добавил изменение общего масштаба интерфейса
-- Добавил стандартный шаг по вертикали для быстрого вывода ui
+- Добавил шаг по вертикали для быстрого вывода ui
 - Починил RadioButton
 
-# Дока
+## Дока
 ```cpp
 pressHandler();
 releaseHandler();
