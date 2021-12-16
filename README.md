@@ -4,6 +4,18 @@
 - Репозиторий: https://github.com/lucascassiano/cards_ui  
 
 Я форкнул себе, доделал недоделанное, починил неработающее и добавил пару приколюх.
+
+## Демо
+```cpp
+  Button("Button 1", 10);
+  Button("Button 2", 10);
+  input.draw(10, 200);
+  t = Toggle(t, 10);
+  r = RadioButton(r, 10);
+  s = Slider(s, 10);
+  String[] dropdown = {"Option_0123", "Option 1", "Option 2"};
+  drop.draw(dropdown, 10);
+```
 ![demo](/demo.png)
 
 ## Возможности
