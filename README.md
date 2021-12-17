@@ -33,6 +33,10 @@ pressHandler();
 releaseHandler();
 keyHandler();
 
+uiResetStep(int y);
+int uiStep();
+int uiGetStep();
+
 uiSetScale(float scale);
 uiTextSize(int size);
 inputTextSize(int size);

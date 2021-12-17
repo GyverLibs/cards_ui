@@ -24,6 +24,10 @@ void keyPressed() {
  releaseHandler()
  keyHandler()
  
+ uiResetStep(int y);
+ int uiStep();
+ int uiGetStep();
+ 
  uiSetScale(float scale)
  uiTextSize(int size)
  inputTextSize(int size)
@@ -44,6 +48,11 @@ void keyPressed() {
  ImageButton(PImage img, int x, int y, int w, int h, int padding)
  ImageButton(PImage img, int x, int y, int w, int h, boolean select)
  ImageButton(PImage img, int x, int y, int w, int h, boolean select, int padding)
+ 
+ IconButton(String icon, int x, int y, int padding)
+ IconButton(String icon, int x, int y, int padding, boolean select)
+ IconButton(String icon, int x, int y, int w, int h, int padding)
+ IconButton(String icon, int x, int y, int w, int h, int padding, boolean select)
  
  TextInput(String t)
  TextInput(String t, String l)
