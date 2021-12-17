@@ -13,7 +13,7 @@ void keyPressed() {
  UI Components of Cards_UI for Processing
  author: Lucas Cassiano - cassiano@mit.edu
  version: 2.0 by AlexGyver
-*/
+ */
 // Function list (2.0): https://github.com/GyverLibs/cards_ui
 // Old demo: https://web.media.mit.edu/~cassiano/projects/cards_ui/
 // Icon-images: https://iconsplace.com/
@@ -187,6 +187,10 @@ public boolean Button(String text, int x, int y, int w, int h) {
   return false;
 }
 
+boolean Button(String text) {
+  return Button(text, (width-s_med)/2, uiStep(), s_med, s_height);
+}
+
 boolean Button(String text, int x) {
   return Button(text, x, uiStep(), s_med, s_height);
 }
@@ -248,15 +252,24 @@ public void Icon(String name, int x, int y, int w, int h) {
     try {
       PShape i = loadShape(name+".svg");
       usedIcons.put(name, i);
-      shape(i, x, y, w, h);
     }
     catch(Exception e) {
       println("CARD_UI - ERROR: svg icon not found");
     }
-  } else {
-    PShape i = usedIcons.get(name);
-    shape(i, x, y, w, h);
   }
+  PShape i = usedIcons.get(name);
+  if (w == h && i.width != i.height) {
+    if (i.width > i.height) {
+      int H = int(w * i.height / i.width);
+      y += (h - H) / 2;
+      h = H;
+    } else {
+      int W = int(h * i.width / i.height);
+      x += (w - W) / 2;
+      w = W;
+    }
+  }
+  shape(i, x, y, w, h);
 }
 public void Icon(String name, int x, int y, int w) {
   Icon(name, x, y, w, w);
@@ -264,23 +277,28 @@ public void Icon(String name, int x, int y, int w) {
 
 // ====================================== IMAGE BUTTON =======================================
 boolean ImageButton(PImage img, int x, int y, int w, int h, boolean select) {
-  int p=min(w, h)/10;
-  int ix=x+p;
-  int iy=y+p;
-  int iw=min(w, h)-2*p;
+  int p = min(w, h) / 10;
+  int W = w-2*p, H = h-2*p;
+  
+  int dW = W;
+  int dH = W * img.height / img.width;
+  if (dH > H) {
+    dH = H;
+    dW = H * img.width / img.height;
+  }
 
-  if (w > h) ix = x+(w-iw)/2;
-  else if (w < h) iy = y+(h-iw)/2;
+  int ix = x + (w - dW) / 2;
+  int iy = y + (h - dH) / 2;
 
   if (mouseX >= x && mouseX <= x+w && 
     mouseY >= y && mouseY <= y+h) {
     fill(c_hover);
     rect(x, y, w, h);
-    image(img, ix, iy, iw, iw);
+    image(img, ix, iy, dW, dH);
     if (clicked && canClick) {
       fill(c_light);
       rect(x, y, w, h);
-      image(img, ix, iy, iw, iw);
+      image(img, ix, iy, dW, dH);
       canClick = false;
       return true;
     }
@@ -288,7 +306,7 @@ boolean ImageButton(PImage img, int x, int y, int w, int h, boolean select) {
     if (select) fill(c_dark);
     else fill(c_light);
     rect(x, y, w, h);
-    image(img, ix, iy, iw, iw);
+    image(img, ix, iy, dW, dH);
     return false;
   }
   return false;
@@ -446,9 +464,13 @@ public class TextInput {
   public String draw(int x, int w) {
     return draw(x, uiStep(), w, s_height);
   }
-  
+
   public String draw(int x) {
     return draw(x, uiStep(), s_med, s_height);
+  }
+  
+  public String draw() {
+    return draw((width-s_med)/2, uiStep(), s_med, s_height);
   }
 
   public String getText() {
@@ -505,7 +527,6 @@ public void endCard() {
 // ====================================== TOGGLE =======================================
 //Toggle
 public boolean Toggle(boolean value, int x, int y, int w, int h) {
-  
   fill(c_dark);
   stroke(c_light);
   rect(x, y, w, h, h);
@@ -542,6 +563,10 @@ public boolean Toggle(boolean value, int x) {
   return Toggle(value, x, uiStep(), s_small, s_height);
 }
 
+public boolean Toggle(boolean value) {
+  return Toggle(value, (width-s_small)/2, uiStep(), s_small, s_height);
+}
+
 public boolean Toggle(String text, boolean value, int x, int y, int w, int h) {
   textSize(medFontSize);
   fill(c_text_color);
@@ -559,13 +584,17 @@ public boolean Toggle(String text, boolean value, int x) {
   return Toggle(text, value, x, uiStep(), s_small, s_height);
 }
 
+public boolean Toggle(String text, boolean value) {
+  return Toggle(text, value, (width-s_small)/2, uiStep(), s_small, s_height);
+}
+
 // ====================================== RADIO BUTTON =======================================
 //Toggle
 public boolean RadioButton(boolean value, int x, int y, int w) {
   noStroke();
   if (value) fill(c_hover);
   else fill(c_light);
-  
+
   if (mouseX >= x && mouseX <= x+w && mouseY >= y && mouseY <= y+w) {  //Hover
     fill(red(c_hover), green(c_hover), blue(c_hover), 100);
     circle(x+w/2, y+w/2, w-2);
@@ -591,6 +620,10 @@ public boolean RadioButton(boolean value, int x) {
   return RadioButton(value, x, uiStep(), s_height);
 }
 
+public boolean RadioButton(boolean value) {
+  return RadioButton(value, (width-s_height)/2, uiStep(), s_height);
+}
+
 public boolean RadioButton(String text, boolean value, int x, int y, int w) {
   textSize(medFontSize);
   fill(c_text_color);
@@ -606,6 +639,10 @@ public boolean RadioButton(String text, boolean value, int x, int y) {
 
 public boolean RadioButton(String text, boolean value, int x) {
   return RadioButton(text, value, x, uiStep(), s_height);
+}
+
+public boolean RadioButton(String text, boolean value) {
+  return RadioButton(text, value, (width-s_height)/2, uiStep(), s_height);
 }
 
 // ====================================== SLIDER =======================================

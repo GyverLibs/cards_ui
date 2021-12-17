@@ -68,6 +68,7 @@ uiFill();
 
 Tooltip(String text, int x, int y);
 
+Button(String text);
 Button(String text, int x);
 Button(String text, int x, int y);
 Button(String text, int x, int y, String t);
@@ -86,6 +87,7 @@ IconButton(String icon, int x, int y, int w, int h, boolean select);
 
 TextInput(String t);
 TextInput(String t, String l);
+draw();
 draw(int x);
 draw(int x, int w);
 draw(int x, int y, int w);
@@ -97,16 +99,20 @@ EditText(String txt);
 beginCard(String card_title, int x, int y, int w, int h);
 beginCard(int x, int y, int w, int h);
 
+Toggle(boolean value);
 Toggle(boolean value, int x);
 Toggle(boolean value, int x, int y);
 Toggle(boolean value, int x, int y, int w, int h);
-Toggle(String text, boolean value, int x, int y, int w, int h);
+Toggle(String text, boolean value);
 Toggle(String text, boolean value, int x);
 Toggle(String text, boolean value, int x, int y);
+Toggle(String text, boolean value, int x, int y, int w, int h);
 
+RadioButton(boolean value);
 RadioButton(boolean value, int x);
 RadioButton(boolean value, int x, int y);
 RadioButton(boolean value, int x, int y, int w);
+RadioButton(String text, boolean value);
 RadioButton(String text, boolean value, int x);
 RadioButton(String text, boolean value, int x, int y);
 RadioButton(String text, boolean value, int x, int y, int w);
