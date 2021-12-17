@@ -147,6 +147,9 @@ int uiStep() {
   _pos_y += _step_y;
   return _pos_y - _step_y;
 }
+int uiGetStep() {
+  return _pos_y - _step_y;
+}
 
 // ====================================== SETTINGS =======================================
 public void uiSetScale(float scale) {
@@ -308,12 +311,11 @@ boolean Button(String text, int x, int y, int w, int h, String tooltip) {
 //This hashmap is used to avoid reload the same icon multiple times
 HashMap<String, PShape> usedIcons = new HashMap<String, PShape>();
 
-public void Icon(String name, int x, int y, int w, int h, int c) {
+public void Icon(String name, int x, int y, int w, int h) {
   if (usedIcons.get(name)==null) {
     try {
       PShape i = loadShape("svg/"+name+".svg");
       usedIcons.put(name, i);
-      i.setFill(color(c));
       shape(i, x, y, w, h);
     }
     catch(Exception e) {
@@ -321,12 +323,11 @@ public void Icon(String name, int x, int y, int w, int h, int c) {
     }
   } else {
     PShape i = usedIcons.get(name);
-    i.setFill(color(c));
     shape(i, x, y, w, h);
   }
 }
-public void Icon(String name, int x, int y, int w, int c) {
-  Icon(name, x, y, w, w, c);
+public void Icon(String name, int x, int y, int w) {
+  Icon(name, x, y, w, w);
 }
 
 // ====================================== IMAGE BUTTON =======================================
@@ -437,6 +438,49 @@ boolean ImageButton(PImage img, int x, int y, int w, int h, boolean select, int 
   return false;
 }
 
+// ====================================== ICON BUTTON =======================================
+boolean IconButton(String icon, int x, int y, int w, int h, int padding, boolean select) {
+  int ix=x+padding;
+  int iy=y+padding;
+  int iw=min(w, h)-2*padding;
+
+  if (w > h) ix = x+(w-iw)/2;
+  else if (w < h) iy = y+(h-iw)/2;
+
+  if (mouseX >= x && mouseX <= x+w && 
+    mouseY >= y && mouseY <= y+h) {
+    fill(c_hover);
+    rect(x, y, w, h);
+    Icon(icon, ix, iy, iw);
+    if (clicked && canClick) {
+      fill(c_light);
+      rect(x, y, w, h);
+      Icon(icon, ix, iy, iw);
+      canClick = false;
+      return true;
+    }
+  } else {
+    if (select) fill(c_dark);
+    else fill(c_light);
+    rect(x, y, w, h);
+    Icon(icon, ix, iy, iw);
+    return false;
+  }
+  return false;
+}
+
+boolean IconButton(String icon, int x, int y, int w, int h, int padding) {
+  return IconButton(icon, x, y, w, h, padding, false);
+}
+
+boolean IconButton(String icon, int x, int y, int padding) {
+  return IconButton(icon, x, y, s_height, s_height, padding, false);
+}
+
+boolean IconButton(String icon, int x, int y, int padding, boolean select) {
+  return IconButton(icon, x, y, s_height, s_height, padding, select);
+}
+
 // ====================================== TEXT INPUT =======================================
 public class TextInput {
   String text = "";
@@ -525,11 +569,11 @@ public class TextInput {
     }
     return text;
   }
-  
+
   public String draw(int x, int y, int w) {
     return draw(x, y, w, s_height);
   }
-  
+
   public String draw(int x, int w) {
     return draw(x, uiStep(), w, s_height);
   }
@@ -641,7 +685,7 @@ public boolean RadioButton(boolean value, int x, int y, int w) {
   if (value) fill(c_hover);
   else fill(c_light);
   noStroke();
-  
+
   if (mouseX >= x && mouseX <= x+w && mouseY >= y && mouseY <= y+w) {  //Hover
     stroke(c_hover);
     circle(1+x+w/2, y+w/2, w-2);
@@ -884,7 +928,7 @@ public class DropDown {
     }
     return draw(args, x, y, w+medFontSize);
   }
-  
+
   public boolean draw(String args[], int x) {
     return draw(args, x, uiStep());
   }

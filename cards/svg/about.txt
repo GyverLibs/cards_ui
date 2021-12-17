@@ -1,0 +1,8 @@
+Font Awesome 6
+Version: 6.0.0-beta3 (“Unicorn Frappe”)
+https://fontawesome.com/download
+
+Покрасил всё в белый через замену текста
+/></svg>
+на
+ style="fill:#ffffff;fill-opacity:1"/></svg>

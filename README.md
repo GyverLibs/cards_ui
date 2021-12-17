@@ -9,6 +9,7 @@
 - Подсказка
 - Кнопка
 - Кнопка с картинкой
+- Кнопка с иконкой
 - Ввод текста
 - Карточка
 - Переключатель
@@ -23,6 +24,7 @@
 - Добавил изменение общего масштаба интерфейса
 - Добавил стандартный шаг по вертикали для быстрого вывода ui
 - Починил RadioButton
+- Добавил IconButton
 
 # Дока
 ```cpp
@@ -51,6 +53,11 @@ ImageButton(PImage img, int x, int y, int w, int h);
 ImageButton(PImage img, int x, int y, int w, int h, int padding);
 ImageButton(PImage img, int x, int y, int w, int h, boolean select);
 ImageButton(PImage img, int x, int y, int w, int h, boolean select, int padding);
+
+IconButton(String icon, int x, int y, int padding);
+IconButton(String icon, int x, int y, int padding, boolean select);
+IconButton(String icon, int x, int y, int w, int h, int padding);
+IconButton(String icon, int x, int y, int w, int h, int padding, boolean select);
 
 TextInput(String t);
 TextInput(String t, String l);
@@ -93,6 +100,6 @@ boolean draw(String args[], int x);
 boolean draw(String args[], int x, int y);
 boolean draw(String args[], int x, int y, int w);
 
-Icon(String name, int x, int y, int w, int c);
-Icon(String name, int x, int y, int w, int h, int c);
+Icon(String name, int x, int y, int w);
+Icon(String name, int x, int y, int w, int h);
 ```

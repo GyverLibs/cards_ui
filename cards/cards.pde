@@ -13,6 +13,7 @@ DropDown drop = new DropDown();
 
 void draw() {  
   uiFill();
+  //background(200);
   //if (mouseX > 50) uiSetScale(mouseX/50.0);
 
   uiResetStep(10);
@@ -27,11 +28,13 @@ void draw() {
   drop.draw(dropdown, 10);
 
 
-  //PImage img;
-  //img = loadImage("github-icon-256.png");
-  //b = ImageButton(img, 10, 100, 100, 100, b);
-
-  //Icon("amazon", 100, 100, 50, 255);
+  /*PImage img;
+  img = loadImage("github-icon-256.png");
+  b = ImageButton(img, 10, 100, 100, 100, b);
+  */
+  
+  IconButton("solid/address-book", 230, uiGetStep(), 10);
+  IconButton("regular/address-book", 230+s_height, uiGetStep(), 10);
 }
 
 //backPressed()
