@@ -20,19 +20,19 @@ void draw() {
 
   Button("Button 1", 10);
   Button("Button 2", 10);
-  input.draw(10, 200);
-  t = Toggle("Toggle", t, 10);
-  r = RadioButton("Radio", r, 10);
-  s = Slider(s, 10);
-  String[] dropdown = {"Option_0123", "Option 1", "Option 2"};
-  drop.draw(dropdown, 10); 
+   input.draw(10);
+   t = Toggle("Toggle", t, 10);
+   r = RadioButton("Radio", r, 10);
+   s = Slider(s, 10);
+   String[] dropdown = {"Option_0123", "Option 1", "Option 2"};
+   drop.draw(dropdown, 10);
 
-  IconButton("svg/solid/address-book", 230, uiGetStep(), 10);
-  IconButton("svg/regular/address-book", 230+s_height, uiGetStep(), 10);
+  IconButton("svg/solid/bell", 230, uiGetStep());
+  IconButton("svg/regular/bell", 230+s_height, uiGetStep());
 
   PImage img;
   img = loadImage("github-icon-256.png");  
-  ImageButton(img, 230, uiStep(), 90, 80, 5, false);
+  ImageButton(img, 230, uiStep(), 90, 80, false);
 }
 
 //backPressed()

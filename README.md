@@ -74,18 +74,19 @@ Button(String text, int x, int y, String t);
 Button(String text, int x, int y, int w, int h);
 Button(String text, int x, int y, int w, int h, String tooltip);
 
-ImageButton(String icon, int x, int y, int padding);
-ImageButton(String icon, int x, int y, int padding, boolean select);
-ImageButton(String icon, int x, int y, int w, int h, int padding);
-ImageButton(String icon, int x, int y, int w, int h, int padding, boolean select);
+ImageButton(String icon, int x, int y);
+ImageButton(String icon, int x, int y, boolean select);
+ImageButton(String icon, int x, int y, int w, int h);
+ImageButton(String icon, int x, int y, int w, int h, boolean select);
 
-IconButton(String icon, int x, int y, int padding);
-IconButton(String icon, int x, int y, int padding, boolean select);
-IconButton(String icon, int x, int y, int w, int h, int padding);
-IconButton(String icon, int x, int y, int w, int h, int padding, boolean select);
+IconButton(String icon, int x, int y);
+IconButton(String icon, int x, int y, boolean select);
+IconButton(String icon, int x, int y, int w, int h);
+IconButton(String icon, int x, int y, int w, int h, boolean select);
 
 TextInput(String t);
 TextInput(String t, String l);
+draw(int x);
 draw(int x, int w);
 draw(int x, int y, int w);
 draw(int x, int y, int w, int h);

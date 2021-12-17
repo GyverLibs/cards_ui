@@ -44,7 +44,7 @@ private int s_big = 200;
 private int s_height = 30;
 private int s_med = 100;
 private int s_small = 50;
-private int s_stroke = 9;
+private int s_stroke = 7;
 
 //For Cards
 int card_h = 0;
@@ -64,7 +64,7 @@ private int d_big = 200;
 private int d_height = 30;
 private int d_med = 100;
 private int d_small = 50;
-private int d_stroke = 9;
+private int d_stroke = 5;
 
 // pos
 private int _pos_y = 0;
@@ -263,10 +263,11 @@ public void Icon(String name, int x, int y, int w) {
 }
 
 // ====================================== IMAGE BUTTON =======================================
-boolean ImageButton(PImage img, int x, int y, int w, int h, int padding, boolean select) {
-  int ix=x+padding;
-  int iy=y+padding;
-  int iw=min(w, h)-2*padding;
+boolean ImageButton(PImage img, int x, int y, int w, int h, boolean select) {
+  int p=min(w, h)/10;
+  int ix=x+p;
+  int iy=y+p;
+  int iw=min(w, h)-2*p;
 
   if (w > h) ix = x+(w-iw)/2;
   else if (w < h) iy = y+(h-iw)/2;
@@ -293,23 +294,24 @@ boolean ImageButton(PImage img, int x, int y, int w, int h, int padding, boolean
   return false;
 }
 
-boolean ImageButton(PImage img, int x, int y, int w, int h, int padding) {
-  return ImageButton(img, x, y, w, h, padding, false);
+boolean ImageButton(PImage img, int x, int y, int w, int h) {
+  return ImageButton(img, x, y, w, h, false);
 }
 
-boolean ImageButton(PImage img, int x, int y, int padding) {
-  return ImageButton(img, x, y, s_height, s_height, padding, false);
+boolean ImageButton(PImage img, int x, int y) {
+  return ImageButton(img, x, y, s_height, s_height, false);
 }
 
-boolean ImageButton(PImage img, int x, int y, int padding, boolean select) {
-  return ImageButton(img, x, y, s_height, s_height, padding, select);
+boolean ImageButton(PImage img, int x, int y, boolean select) {
+  return ImageButton(img, x, y, s_height, s_height, select);
 }
 
 // ====================================== ICON BUTTON =======================================
-boolean IconButton(String icon, int x, int y, int w, int h, int padding, boolean select) {
-  int ix=x+padding;
-  int iy=y+padding;
-  int iw=min(w, h)-2*padding;
+boolean IconButton(String icon, int x, int y, int w, int h, boolean select) {
+  int p=min(w, h)/10;
+  int ix=x+p;
+  int iy=y+p;
+  int iw=min(w, h)-2*p;
 
   if (w > h) ix = x+(w-iw)/2;
   else if (w < h) iy = y+(h-iw)/2;
@@ -336,16 +338,16 @@ boolean IconButton(String icon, int x, int y, int w, int h, int padding, boolean
   return false;
 }
 
-boolean IconButton(String icon, int x, int y, int w, int h, int padding) {
-  return IconButton(icon, x, y, w, h, padding, false);
+boolean IconButton(String icon, int x, int y, int w, int h) {
+  return IconButton(icon, x, y, w, h, false);
 }
 
-boolean IconButton(String icon, int x, int y, int padding) {
-  return IconButton(icon, x, y, s_height, s_height, padding, false);
+boolean IconButton(String icon, int x, int y) {
+  return IconButton(icon, x, y, s_height, s_height, false);
 }
 
-boolean IconButton(String icon, int x, int y, int padding, boolean select) {
-  return IconButton(icon, x, y, s_height, s_height, padding, select);
+boolean IconButton(String icon, int x, int y, boolean select) {
+  return IconButton(icon, x, y, s_height, s_height, select);
 }
 
 // ====================================== TEXT INPUT =======================================
@@ -443,6 +445,10 @@ public class TextInput {
 
   public String draw(int x, int w) {
     return draw(x, uiStep(), w, s_height);
+  }
+  
+  public String draw(int x) {
+    return draw(x, uiStep(), s_med, s_height);
   }
 
   public String getText() {
