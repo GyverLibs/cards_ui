@@ -854,7 +854,7 @@ public class DropDown {
         }
       }
     }
-    return true;
+    return false;
   }
 
   public boolean draw(String args[], int x, int y) {
