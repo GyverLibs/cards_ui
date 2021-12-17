@@ -13,91 +13,11 @@ void keyPressed() {
  UI Components of Cards_UI for Processing
  author: Lucas Cassiano - cassiano@mit.edu
  version: 2.0 by AlexGyver
- 
- */
-// https://web.media.mit.edu/~cassiano/projects/cards_ui/
-// https://iconsplace.com/
-// Modified by AlexGyver, 2021
-
-/*
- pressHandler()
- releaseHandler()
- keyHandler()
- 
- uiResetStep(int y);
- int uiStep();
- int uiGetStep();
- 
- uiSetScale(float scale)
- uiTextSize(int size)
- inputTextSize(int size)
- tooltipTextSize(int size)
- uiDark()
- uiLight()
- uiFill()
- 
- Tooltip(String text, int x, int y)
- 
- Button(String text, int x)
- Button(String text, int x, int y)
- Button(String text, int x, int y, String t)
- Button(String text, int x, int y, int w, int h)
- Button(String text, int x, int y, int w, int h, String tooltip)
- 
- ImageButton(PImage img, int x, int y, int w, int h)
- ImageButton(PImage img, int x, int y, int w, int h, int padding)
- ImageButton(PImage img, int x, int y, int w, int h, boolean select)
- ImageButton(PImage img, int x, int y, int w, int h, boolean select, int padding)
- 
- IconButton(String icon, int x, int y, int padding)
- IconButton(String icon, int x, int y, int padding, boolean select)
- IconButton(String icon, int x, int y, int w, int h, int padding)
- IconButton(String icon, int x, int y, int w, int h, int padding, boolean select)
- 
- TextInput(String t)
- TextInput(String t, String l)
- draw(int x, int w)
- draw(int x, int y, int w)
- draw(int x, int y, int w, int h)
- getText()
- 
- EditText(String txt)
- 
- beginCard(String card_title, int x, int y, int w, int h)
- beginCard(int x, int y, int w, int h)
- 
- Toggle(boolean value, int x)
- Toggle(boolean value, int x, int y)
- Toggle(boolean value, int x, int y, int w, int h)
- Toggle(String text, boolean value, int x, int y, int w, int h)
- 
- RadioButton(boolean value, int x)
- RadioButton(boolean value, int x, int y)
- RadioButton(boolean value, int x, int y, int w)
- 
- Slider(float value, int x)
- Slider(float value, int x, int y)
- Slider(float value, int x, int y, char t)
- Slider(String label, float value, int x, int y)
- Slider(String label, float value, int x, int y, char t)
- Slider(String label, float value, int x, int y, int w, int h)
- Slider(float value, int x, int y, int w, int h)
- Slider(float value, int x, int y, int w, int h, char t)
- Slider(float min, int max, int value, int x, int y, int w, int h)
- Slider(float min, float max, float value, int x, int y, int w, int h)
- Slider(float min, float max, float value, int x, int y, int w, int h, char tooltip)
- Slider(String label, float min, float max, float value, int x, int y, int w, int h)
- Slider(String label, float min, float max, float value, int x, int y, int w, int h, char tooltip)
- 
- DropDown()
- int getSelected()
- boolean draw(String args[], int x);
- boolean draw(String args[], int x, int y);
- boolean draw(String args[], int x, int y, int w);
- 
- Icon(String name, int x, int y, int w, int h, int c)
- Icon(String name, int x, int y, int w, int c)
- */
+*/
+// Function list (2.0): https://github.com/GyverLibs/cards_ui
+// Old demo: https://web.media.mit.edu/~cassiano/projects/cards_ui/
+// Icon-images: https://iconsplace.com/
+// Fontawesome Icons: https://fontawesome.com/download
 
 //Colors
 private color c_very_dark = color(36, 37, 46);
@@ -124,6 +44,7 @@ private int s_big = 200;
 private int s_height = 30;
 private int s_med = 100;
 private int s_small = 50;
+private int s_stroke = 9;
 
 //For Cards
 int card_h = 0;
@@ -143,6 +64,7 @@ private int d_big = 200;
 private int d_height = 30;
 private int d_med = 100;
 private int d_small = 50;
+private int d_stroke = 9;
 
 // pos
 private int _pos_y = 0;
@@ -166,6 +88,7 @@ public void uiSetScale(float scale) {
   s_height = int(d_height * scale);
   s_med = int(d_med * scale);
   s_small = int(d_small * scale);
+  s_stroke = int(d_stroke * scale);
   medFontSize = int(d_medFontSize * scale);
   smallFontSize = int(d_smallFontSize * scale);
   largeFontSize = int(d_largeFontSize * scale);
@@ -323,7 +246,7 @@ HashMap<String, PShape> usedIcons = new HashMap<String, PShape>();
 public void Icon(String name, int x, int y, int w, int h) {
   if (usedIcons.get(name)==null) {
     try {
-      PShape i = loadShape("svg/"+name+".svg");
+      PShape i = loadShape(name+".svg");
       usedIcons.put(name, i);
       shape(i, x, y, w, h);
     }
@@ -340,111 +263,46 @@ public void Icon(String name, int x, int y, int w) {
 }
 
 // ====================================== IMAGE BUTTON =======================================
-//Basic Image Button
-boolean ImageButton(PImage img, int x, int y, int w, int h) {
+boolean ImageButton(PImage img, int x, int y, int w, int h, int padding, boolean select) {
+  int ix=x+padding;
+  int iy=y+padding;
+  int iw=min(w, h)-2*padding;
+
+  if (w > h) ix = x+(w-iw)/2;
+  else if (w < h) iy = y+(h-iw)/2;
+
   if (mouseX >= x && mouseX <= x+w && 
     mouseY >= y && mouseY <= y+h) {
-    fill(c_dark);
+    fill(c_hover);
     rect(x, y, w, h);
-    image(img, x, y, w, h);
+    image(img, ix, iy, iw, iw);
     if (clicked && canClick) {
-      fill(c_mid);
+      fill(c_light);
       rect(x, y, w, h);
-      image(img, x, y, w, h);
+      image(img, ix, iy, iw, iw);
       canClick = false;
       return true;
     }
   } else {
-    fill(c_mid);
+    if (select) fill(c_dark);
+    else fill(c_light);
     rect(x, y, w, h);
-    image(img, x, y, w, h);
+    image(img, ix, iy, iw, iw);
     return false;
   }
-
   return false;
 }
 
-//Basic ImageButton with padding
 boolean ImageButton(PImage img, int x, int y, int w, int h, int padding) {
-  if (mouseX >= x && mouseX <= x+w && 
-    mouseY >= y && mouseY <= y+h) {
-    fill(c_dark);
-    rect(x, y, w, h);
-    image(img, x+padding, y+padding, w-2*padding, h-2*padding);
-    if (clicked && canClick) {
-      fill(c_mid);
-      rect(x, y, w, h);
-      image(img, x, y, w, h);
-      canClick = false;
-      return true;
-    }
-  } else {
-    fill(c_mid);
-    rect(x, y, w, h);
-    image(img, x+padding, y+padding, w-2*padding, h-2*padding);
-    return false;
-  }
-
-  return false;
+  return ImageButton(img, x, y, w, h, padding, false);
 }
 
-//Image Button with selected state
-boolean ImageButton(PImage img, int x, int y, int w, int h, boolean select) {
-  if (select) {
-    fill(c_dark);
-    rect(x, y, w, h);
-    image(img, x, y, w, h);
-    //return true;
-  } else if (mouseX >= x && mouseX <= x+w && 
-    mouseY >= y && mouseY <= y+h) {
-    fill(c_dark);
-    rect(x, y, w, h);
-    image(img, x, y, w, h);
-    if (clicked && canClick) {
-      fill(c_mid);
-      rect(x, y, w, h);
-      image(img, x, y, w, h);
-      canClick = false;
-      return true;
-    }
-  } else {
-    fill(c_mid);
-    rect(x, y, w, h);
-    image(img, x, y, w, h);
-    return false;
-  }
-
-  return false;
+boolean ImageButton(PImage img, int x, int y, int padding) {
+  return ImageButton(img, x, y, s_height, s_height, padding, false);
 }
 
-
-//ImageButton with selected state and with padding
-boolean ImageButton(PImage img, int x, int y, int w, int h, boolean select, int padding) {
-  if (select) {
-    fill(c_dark);
-    rect(x, y, w, h);
-    image(img, x+padding, y+padding, w-2*padding, h-2*padding);
-    //return true;
-  } else if (mouseX >= x && mouseX <= x+w && 
-    mouseY >= y && mouseY <= y+h) {
-    fill(c_dark);
-    rect(x, y, w, h);
-    image(img, x+padding, y+padding, w-2*padding, h-2*padding);
-    if (clicked && canClick) {
-      fill(c_mid);
-      rect(x, y, w, h);
-      image(img, x+padding, y+padding, w-2*padding, h-2*padding);
-      canClick = false;
-      return true;
-    }
-  } else {
-    fill(c_mid);
-    rect(x, y, w, h);
-    image(img, x, y, w, h);
-    return false;
-  }
-
-  return false;
+boolean ImageButton(PImage img, int x, int y, int padding, boolean select) {
+  return ImageButton(img, x, y, s_height, s_height, padding, select);
 }
 
 // ====================================== ICON BUTTON =======================================
@@ -641,20 +499,19 @@ public void endCard() {
 // ====================================== TOGGLE =======================================
 //Toggle
 public boolean Toggle(boolean value, int x, int y, int w, int h) {
+  
   fill(c_dark);
   stroke(c_light);
-  rect(x, y, w, h, h/2);
+  rect(x, y, w, h, h);
+  noStroke();
   int pos = 0;
-  if (value)
-    pos = w-h;
+  if (value) pos = w-h;
   //Hover
   if (mouseX >= x && mouseX <= x+w && mouseY >= y && mouseY <= y+h) {
-    noStroke();
     fill(red(c_hover), green(c_hover), blue(c_hover), 100);  
-    ellipse(x+h/2+pos, y+h/2, h-2, h-2);
+    circle(x+h/2+pos, y+h/2, h-2);
     fill(c_hover);
-    ellipse(x+h/2+pos, y+h/2, h-8, h-8);
-    noStroke();
+    circle(x+h/2+pos, y+h/2, h-s_stroke);
     if (clicked && canClick) {
       value = !value;
       canClick = false;
@@ -663,9 +520,9 @@ public boolean Toggle(boolean value, int x, int y, int w, int h) {
   } 
   //Normal
   else {
-    fill(c_light);
-    stroke(c_light);
-    ellipse(x+h/2+pos, y+h/2, h-8, h-8);
+    if (value) fill(c_hover);
+    else fill(c_light);
+    circle(x+h/2+pos, y+h/2, h-s_stroke);
   }
 
   return value;
@@ -681,30 +538,41 @@ public boolean Toggle(boolean value, int x) {
 
 public boolean Toggle(String text, boolean value, int x, int y, int w, int h) {
   textSize(medFontSize);
-  fill(255);
+  fill(c_text_color);
   textAlign(LEFT, CENTER);
   text(text, x, y, w, h);
   int pos_x = (int)textWidth(text);
   return Toggle(value, x+10+pos_x, y, s_small, s_height);
 }
 
+public boolean Toggle(String text, boolean value, int x, int y) {
+  return Toggle(text, value, x, y, s_small, s_height);
+}
+
+public boolean Toggle(String text, boolean value, int x) {
+  return Toggle(text, value, x, uiStep(), s_small, s_height);
+}
+
 // ====================================== RADIO BUTTON =======================================
 //Toggle
 public boolean RadioButton(boolean value, int x, int y, int w) {
+  noStroke();
   if (value) fill(c_hover);
   else fill(c_light);
-  noStroke();
-
+  
   if (mouseX >= x && mouseX <= x+w && mouseY >= y && mouseY <= y+w) {  //Hover
-    stroke(c_hover);
-    circle(1+x+w/2, y+w/2, w-2);
+    fill(red(c_hover), green(c_hover), blue(c_hover), 100);
+    circle(x+w/2, y+w/2, w-2);
+    if (value) fill(c_hover);
+    else fill(c_light);
+    circle(x+w/2, y+w/2, w-s_stroke);
     if (clicked && canClick) {
       value = !value;
       canClick = false;
       return value;
     }
   } else {
-    circle(x+w/2, y+w/2, w-8);
+    circle(x+w/2, y+w/2, w-s_stroke);
   }
   return value;
 }
@@ -715,6 +583,23 @@ public boolean RadioButton(boolean value, int x, int y) {
 
 public boolean RadioButton(boolean value, int x) {
   return RadioButton(value, x, uiStep(), s_height);
+}
+
+public boolean RadioButton(String text, boolean value, int x, int y, int w) {
+  textSize(medFontSize);
+  fill(c_text_color);
+  textAlign(LEFT, CENTER);
+  text(text, x, y+w/2);
+  int pos_x = (int)textWidth(text);
+  return RadioButton(value, x+10+pos_x, y, s_height);
+}
+
+public boolean RadioButton(String text, boolean value, int x, int y) {
+  return RadioButton(text, value, x, y, s_height);
+}
+
+public boolean RadioButton(String text, boolean value, int x) {
+  return RadioButton(text, value, x, uiStep(), s_height);
 }
 
 // ====================================== SLIDER =======================================
@@ -737,19 +622,19 @@ public float Slider(float min, float max, float value, int x, int y, int w, int 
       fill(red(c_hover), green(c_hover), blue(c_hover), 100);
       ellipse(pos, y+h/2, h, h); 
       fill(c_hover);
-      ellipse(pos, y+h/2, h-8, h-8);
+      ellipse(pos, y+h/2, h-s_stroke, h-s_stroke);
     } else {
       fill(red(c_hover), green(c_hover), blue(c_hover), 50);
       ellipse(pos+x, y+h/2, h, h); 
       fill(c_hover);
-      ellipse(pos+x, y+h/2, h-8, h-8);
+      ellipse(pos+x, y+h/2, h-s_stroke, h-s_stroke);
     }
   } 
   //Normal
   else {
     noStroke();
     fill(c_hover);
-    ellipse(pos+x, y+h/2, h-8, h-8);
+    ellipse(pos+x, y+h/2, h-s_stroke, h-s_stroke);
   }
 
   return value;
@@ -776,7 +661,7 @@ public float Slider(float min, float max, float value, int x, int y, int w, int 
       fill(red(c_hover), green(c_hover), blue(c_hover), 100);
       ellipse(pos, y+h/2, h, h); 
       fill(c_hover);
-      ellipse(pos, y+h/2, h-8, h-8);
+      ellipse(pos, y+h/2, h-s_stroke, h-s_stroke);
 
       //Tooltip
       if (tooltip=='%') {
@@ -790,14 +675,14 @@ public float Slider(float min, float max, float value, int x, int y, int w, int 
       fill(red(c_hover), green(c_hover), blue(c_hover), 50);
       ellipse(pos+x, y+h/2, h, h); 
       fill(c_hover);
-      ellipse(pos+x, y+h/2, h-8, h-8);
+      ellipse(pos+x, y+h/2, h-s_stroke, h-s_stroke);
     }
   } 
   //Normal
   else {
     noStroke();
     fill(c_hover);
-    ellipse(pos+x, y+h/2, h-8, h-8);
+    ellipse(pos+x, y+h/2, h-s_stroke, h-s_stroke);
   }
 
   return value;

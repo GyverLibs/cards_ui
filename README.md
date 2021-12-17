@@ -1,11 +1,30 @@
 # cards_ui
-Лёгкая библиотека для создания интерфейса на Processing (Java, Android). Доделано by AlexGyver, исходник заброшен:
+Лёгкая библиотека для создания интерфейса на Processing Java и Android. Исходник (заброшен):
 - Примеры: http://web.media.mit.edu/~cassiano/projects/cards_ui/index.html  
 - Репозиторий автора: https://github.com/lucascassiano/cards_ui  
+Я форкнул себе, доделал недоделанное, починил неработающее и добавил пару приколюх.
 
+## Демо
+```cpp
+  Button("Button 1", 10);
+  Button("Button 2", 10);
+  input.draw(10, 200);
+  t = Toggle("Toggle", t, 10);
+  r = RadioButton("Radio", r, 10);
+  s = Slider(s, 10);
+  String[] dropdown = {"Option_0123", "Option 1", "Option 2"};
+  drop.draw(dropdown, 10); 
+
+  IconButton("svg/solid/address-book", 230, uiGetStep(), 10);
+  IconButton("svg/regular/address-book", 230+s_height, uiGetStep(), 10);
+
+  PImage img;
+  img = loadImage("github-icon-256.png");  
+  ImageButton(img, 230, uiStep(), 90, 80, 5, false);
+```
 ![demo](/demo.png)
 
-# Возможности
+## Возможности
 - Подсказка
 - Кнопка
 - Кнопка с картинкой
@@ -18,7 +37,7 @@
 - Выпадающий список
 - FontAwesome иконка
 
-# Изменения
+## Изменения
 - Доделал DropDown
 - Добавил изменение размера шрифта
 - Добавил изменение общего масштаба интерфейса
@@ -27,7 +46,7 @@
 - Добавил IconButton
 - Обновил иконки до 6.0, покрасил все в белый
 
-# Дока
+## Дока
 ```cpp
 pressHandler();
 releaseHandler();
@@ -54,10 +73,10 @@ Button(String text, int x, int y, String t);
 Button(String text, int x, int y, int w, int h);
 Button(String text, int x, int y, int w, int h, String tooltip);
 
-ImageButton(PImage img, int x, int y, int w, int h);
-ImageButton(PImage img, int x, int y, int w, int h, int padding);
-ImageButton(PImage img, int x, int y, int w, int h, boolean select);
-ImageButton(PImage img, int x, int y, int w, int h, boolean select, int padding);
+ImageButton(String icon, int x, int y, int padding);
+ImageButton(String icon, int x, int y, int padding, boolean select);
+ImageButton(String icon, int x, int y, int w, int h, int padding);
+ImageButton(String icon, int x, int y, int w, int h, int padding, boolean select);
 
 IconButton(String icon, int x, int y, int padding);
 IconButton(String icon, int x, int y, int padding, boolean select);
@@ -80,10 +99,15 @@ Toggle(boolean value, int x);
 Toggle(boolean value, int x, int y);
 Toggle(boolean value, int x, int y, int w, int h);
 Toggle(String text, boolean value, int x, int y, int w, int h);
+Toggle(String text, boolean value, int x);
+Toggle(String text, boolean value, int x, int y);
 
 RadioButton(boolean value, int x);
 RadioButton(boolean value, int x, int y);
 RadioButton(boolean value, int x, int y, int w);
+RadioButton(String text, boolean value, int x);
+RadioButton(String text, boolean value, int x, int y);
+RadioButton(String text, boolean value, int x, int y, int w);
 
 Slider(float value, int x);
 Slider(float value, int x, int y);
