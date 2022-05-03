@@ -1,3 +1,5 @@
+[![Foo](https://img.shields.io/badge/README-ENGLISH-brightgreen.svg?style=for-the-badge)](https://github-com.translate.goog/GyverLibs/cards_ui?_x_tr_sl=ru&_x_tr_tl=en)
+
 # cards_ui
 Лёгкая библиотека для создания интерфейса на Processing Java и Android. Исходник (заброшен):
 - Примеры: http://web.media.mit.edu/~cassiano/projects/cards_ui/index.html  
