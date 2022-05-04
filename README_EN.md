@@ -19,7 +19,7 @@ I forked myself, finished the unfinished, fixed the broken and added a couple of
   IconButton("svg/regular/address-book", 230+s_height, uiGetStep(), 10);
 
   PImage img;
-  img = loadImage("github-icon-256.png");
+  img = loadImage("github-icon- 256.png");
   ImageButton(img, 230, uiStep(), 90, 80, 5, false);
 ```
 ![demo](/demo.png)
