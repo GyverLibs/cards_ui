@@ -1,3 +1,5 @@
+This is an automatic translation, may be incorrect in some places. See sources and examples!
+
 # cards_ui
 A lightweight library for creating an interface in Processing Java and Android. Source (abandoned):
 - Examples: http://web.media.mit.edu/~cassiano/projects/cards_ui/index.html
