@@ -1,4 +1,4 @@
-[![Foo](https://img.shields.io/badge/README-ENGLISH-brightgreen.svg?style=for-the-badge)](https://github-com.translate.goog/GyverLibs/cards_ui?_x_tr_sl=ru&_x_tr_tl=en)  
+[![Foo](https://img.shields.io/badge/README-ENGLISH-brightgreen.svg?style=flat-square)](https://github-com.translate.goog/GyverLibs/cards_ui?_x_tr_sl=ru&_x_tr_tl=en)  
 
 [![Foo](https://img.shields.io/badge/ПОДПИСАТЬСЯ-НА%20ОБНОВЛЕНИЯ-brightgreen.svg?style=social&logo=telegram&color=blue)](https://t.me/GyverLibs)
 
